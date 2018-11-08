@@ -1,0 +1,103 @@
+//
+//  PrefixHeader.pch
+//  E-Flow
+//
+//  Created by Experimental Computer on 2018/4/24.
+//  Copyright © 2018年 Luxondata. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import "UIImage+ExtensionUIImage.h"
+#import "UIView+Additions.h"
+#import "UIBarButtonItem+Extension.h"
+#import "NSString+ChangeLanguage.h"
+#import "UIColor+Additions.h"
+#import "NSDate+SFJDate.h"
+#import "NSString+SFJString.h"
+#import "SFJProgressHUD.h"
+
+#import <MBProgressHUD.h>
+#import <AFNetworking.h>
+#import <MJExtension.h>
+#import <Masonry.h>
+
+#ifdef DEBUG   //调试状态
+#define LXDLog(...)  NSLog(__VA_ARGS__)
+#else       //发布状态
+#define LXDLog(...)
+#endif
+
+//---4.9日新增
+#define WEAKSELF(weakSelf) __weak typeof(self) (weakSelf) = self;
+
+#define kHIGHT [UIScreen mainScreen].bounds.size.height
+#define kWIGTH [UIScreen mainScreen].bounds.size.width
+
+#define IOS7 ([[UIDevice currentDevice].systemVersion doubleValue]>=7.0)
+
+#define IOS11 ([[UIDevice currentDevice].systemVersion doubleValue]>=11.0)
+
+//色值
+#define RGBA(r,g,b,a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
+#define RGB(r,g,b) RGBA(r,g,b,1.0f)
+//全局背景色
+#define SFJBGColor RGB(245,245,245)
+// 随机色
+#define SFJRandomColor RGB(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
+
+//由角度转换弧度
+#define kDegreesToRadian(x)      (M_PI * (x) / 180.0)
+//由弧度转换角度
+#define kRadianToDegrees(radian) (radian * 180.0) / (M_PI)
+
+
+//导航栏标题字体
+#define LXDNavigationTitleFont [UIFont systemFontOfSize:20]
+
+//判断是否为iPhone
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+//判断是否为iPad
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+
+// 判断是否是iPhone X
+/*#define iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)*/
+#define iPhoneX ([[UIApplication sharedApplication] statusBarFrame].size.height == 44.f ? YES : NO)
+// 获取状态栏高度
+#define STATUS_BAR_HEIGHT (iPhoneX ? 44.f : 20.f)
+// 获取单独导航栏高度(iphone | Ipad)
+#define NAVIGATIONBAR_HEIGHT (IS_IPAD ? 50.f : 44.f)
+// 获取导航栏高度(包含状态栏)
+//#define NAVIGATION_BAR_HEIGHT (iPhoneX ? 88.f : 64.f)
+#define NAVIGATION_BAR_HEIGHT (STATUS_BAR_HEIGHT + NAVIGATIONBAR_HEIGHT)
+// 获取tabBar高度
+#define TAB_BAR_HEIGHT (iPhoneX ? (49.f+34.f) : 49.f)
+// home indicator
+#define HOME_INDICATOR_HEIGHT (iPhoneX ? 34.f : 0.f)
+//设置 tabBarButtonItem 的高度
+#define SET_TABBAR_BUTTON_ITEM_HEIGHT (iPhoneX ? TAB_BAR_HEIGHT-34.f : TAB_BAR_HEIGHT)
+//4英尺屏幕
+#define FourInch ([UIScreen mainScreen].bounds.size.height == 568.0)
+
+//字体
+#define FontSize11 [UIFont systemFontOfSize:11.f]
+#define FontSize12 [UIFont systemFontOfSize:12.f]
+#define FontSize13 [UIFont systemFontOfSize:13.f]
+#define FontSize14 [UIFont systemFontOfSize:14.f]
+#define FontSize15 [UIFont systemFontOfSize:15.f]
+#define FontSize16 [UIFont systemFontOfSize:16.f]
+#define FontSize17 [UIFont systemFontOfSize:17.f]
+#define FontSize18 [UIFont systemFontOfSize:18.f]
+#define FontSize19 [UIFont systemFontOfSize:19.f]
+#define FontSize20 [UIFont systemFontOfSize:20.f]
+
+//不同屏幕尺寸字体适配
+#define kScreenWidthRatio  (UIScreen.mainScreen.bounds.size.width / 375.0)
+#define kScreenHeightRatio (UIScreen.mainScreen.bounds.size.height / 667.0)
+#define AdaptedWidth(x)  ceilf((x) * kScreenWidthRatio)
+#define AdaptedHeight(x) ceilf((x) * kScreenHeightRatio)
+#define AdaptedFontSize(R)     [UIFont systemFontOfSize:AdaptedWidth(R)]
+
+#endif /* PrefixHeader_pch */
+

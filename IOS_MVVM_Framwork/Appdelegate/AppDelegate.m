@@ -7,6 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "DHGuidePageHUD.h"
+#import "DHLaunchAdPageHUD.h"
+#import "LXDTabBarController.h"
+#import "LXDNavigationController.h"
+
 
 @interface AppDelegate ()
 
@@ -16,7 +21,26 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    
+    LXDTabBarController *tab = [[LXDTabBarController alloc]init];
+    self.window.rootViewController = tab;
+    
+    // 引导页
+    //    NSArray *imgArry = @[@"intro_0", @"intro_1", @"intro_2", @"intro_3"];
+    //    DHGuidePageHUD *guidPage = [[DHGuidePageHUD alloc]dh_initWithFrame:self.window.frame imageNameArray:imgArry buttonIsHidden:NO];
+    //    [self.window addSubview:guidPage];
+    
+    // 广告页
+    NSString *adImageGifPath = [[NSBundle mainBundle] pathForResource:@"LaunchADPageBundle.bundle/intro_4" ofType:@"gif"];
+    DHLaunchAdPageHUD *launchAd = [[DHLaunchAdPageHUD alloc]initWithFrame:self.window.frame aDduration:5.0 aDImageUrl:adImageGifPath hideSkipButton:NO launchAdClickBlock:^{
+        // 广告跳转
+    }];
+    [self.window addSubview:launchAd];
+    
     return YES;
 }
 
